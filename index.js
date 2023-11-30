@@ -1,17 +1,24 @@
 //We first make the event listeners for the mouse press and keyboard press seperately, 
 //and only then we pass both of the event listeners to a function that make sound with the key
+
+//DETECTING MOUSE CLICKS
 var numberOfDrumButtons=document.querySelectorAll(".drum").length;
 for(var i=0;i<numberOfDrumButtons;i++)
 {
     document.querySelectorAll(".drum")[i].addEventListener("click",function() {
         var buttonInnerHTML=this.innerHTML;
         makeSound(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
     });
 }
+
+//DETECTING KEYBOARD PRESSES
 document.addEventListener("keydown" , function(event) {
     makeSound(event.key);
+    buttonAnimation(event.key);
 })
 
+//MAKING THE SOUNDS 
 function makeSound(key)
 {
     switch(key) {
@@ -46,4 +53,12 @@ function makeSound(key)
         default :
             console.log(key);
     }
+}
+function buttonAnimation(key)
+{   
+    var activeBtn=document.querySelector("."+key);
+    activeBtn.classList.add("pressed");
+    setTimeout(function(){
+        activeBtn.classList.remove("pressed");
+    } , 100);
 }
